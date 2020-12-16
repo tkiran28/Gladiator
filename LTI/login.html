@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>
+		login
+	</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+
+<style type="text/css">
+	.form {
+		max-width: 40%;
+		margin: auto;
+
+	}
+	body {
+		background-image: url('farmer.jpg');
+		background-repeat: no-repeat;
+		background-attachment: fixed;  
+		background-size: cover;
+	}
+
+</style>
+<body>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>                        
+				</button>
+				<a class="navbar-brand" href="#">Farmer</a>
+			</div>
+			<ul class="nav navbar-nav navbar-nav right">
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Login
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Login as a farmer</a></li>
+							<li><a href="#">Login as a bidder</a></li>
+							<li><a href="#">Login as a admin</a></li>
+						</ul>
+					</li>
+				</div>
+			
+		</div>
+	</nav>
+			<h3 style="text-align: center;">Login Page</h3>
+			<div class= "container">
+				<form class="form">
+					<div class="form-group">
+						<label for="inputEmail">Email</label>
+						<input type="email" class="form-control" id="inputEmail" placeholder="Email" required autofocus>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword">Password</label>
+						<input type="password" class="form-control " id="inputPassword" placeholder="Password" required autofocus>
+					</div>
+
+					<div> 
+						<a style="color: black;" href="">Forgot Password?</a>
+
+					</div>
+					<div>
+						<button type="submit" class="btn btn-default center-block  btn-lg">Login</button>
+					</div>
+
+
+				</form>
+
+
+				<h5 style="text-align: center;color: white;">New User?Register Here</h5>
+
+
+				<h5 style="text-align: center;color: white;">Are you farmer or bidder?
+					<br>
+					<div class=" btn text-right">
+						<a href="FarmerRegistration.html"><button type="submit" class="btn btn-default btn-lg">Farmer</button></a>
+
+					</div>
+					<div class="btn text-left">
+						<a href="BidderRegistration.html"><button type="submit" class="btn btn-default btn-lg">Bidder</button></a>
+					</div>
+				</h5>
+
+
+			</div>
+
+		</body>
+		</html>

@@ -1,0 +1,49 @@
+<div>
+
+    <style>
+        body {
+
+   
+    align:center;
+}
+    </style>
+    <form class="container">
+        <div class="form-group">
+                <label for="email">Email address:</label>
+                <input type="email" class="form-control" id="email">
+        
+        </div>
+
+        <div class="form-group">
+        
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password">
+            
+        </div>
+
+        <button type="submit" class="btn btn-default">Submit</button>
+        <p>New User? Register Here</p>
+     
+        <a routerLink="/farmer"><button class="btn btn-default " > Farmer</button></a>
+
+        
+        <a routerLink="/bidder"><button class="btn btn-default" > bidder</button></a>
+
+
+    </form>
+
+
+
+
+</div>
+
+
+<div class="file-field">
+    <div class="btn btn-primary btn-sm float-left">
+      <span>Choose file</span>
+      <input type="file">
+    </div>
+    <div class="file-path-wrapper">
+      <input class="file-path validate" type="text" placeholder="Upload your file">
+    </div>
+  </div>

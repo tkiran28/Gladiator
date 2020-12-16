@@ -1,0 +1,130 @@
+<head>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+
+
+<div class = "container-fluid">
+	<form #userForm= "ngForm" (ngSubmit)="onSubmit()" novalidate style="max-width:500px;margin:auto" >
+
+		<h2>Bidder Registration</h2>
+		<hr/>
+
+		<h5>Personal Details</h5>
+		<div class="form-group">
+			<label>Full Name <span>*</span></label>
+			<input type = "text" required #fullName="ngModel" placeholder = "Enter Bidder's Full Name" 
+			[class.is-invalid]='fullName.invalid && fullName.touched' class="form-control" name="fullName" [(ngModel)]="userModel.fullName">
+			<small  class="text-danger" [class.d-none]="fullName.valid || fullName.untouched"> Name is Required </small>
+		</div>
+
+		<div class="form-group">
+			<label>Contact No. <span>*</span></label>
+			<input type = "tel" required #contactNo="ngModel" pattern="^\d{10}$" placeholder = "Enter Contact Number"
+			[class.is-invalid]='contactNo.invalid && contactNo.touched' class="form-control" name="contactNo" [(ngModel)]="userModel.contactNo">
+			<div *ngIf="contactNo.errors &&  contactNo.touched">
+				<small  class="text-danger" *ngIf="contactNo.errors.required"> Contact Number is Required </small>
+				<small  class="text-danger" *ngIf="contactNo.errors.pattern"> Contact Number must be of 10 digits </small>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label>E-mail ID <span>*</span></label>
+			<input type = "email" required #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" placeholder = "Enter Email ID" 
+			class="form-control" [class.is-invalid]='email.invalid && email.touched' name="email" [(ngModel)]="userModel.email">
+			<div *ngIf="email.errors &&  email.touched">
+				<small  class="text-danger" *ngIf="email.errors.required"> Email is Required </small>
+				<small  class="text-danger" *ngIf="email.errors.pattern"> Invalid email </small>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label>Address <span>*</span></label>
+			<input type = "text" required #address="ngModel" placeholder = "Enter Address"
+			[class.is-invalid]='address.invalid && address.touched' class="form-control" name="address" [(ngModel)]="userModel.address">
+			<small  class="text-danger" [class.d-none]="address.valid || address.untouched"> Address is Required </small>
+		</div>
+
+		<div class="form-group">
+			<input type="hidden" name="country" id="countryId" value="IN"/>
+			<label>State <span>*</span></label>
+			<select  name="state" required #state="ngModel" class="states order-alpha, form-control" id="stateId" 
+			[class.is-invalid]='state.invalid && state.touched' [(ngModel)]="userModel.state">
+			<option value="" class="form-control">Select State</option>
+		</select>
+		<small  class="text-danger" [class.d-none]="state.valid || state.untouched"> Select the State </small>
+	</div>
+
+	<div class="form-group">
+		<label>City <span>*</span></label>
+		<select name="city" required #city="ngModel" class="cities order-alpha, form-control" id="cityId" 
+		[class.is-invalid]='city.invalid && city.touched' [(ngModel)]="userModel.city">
+		<option value="" class="form-control" >Select City</option>
+	</select>
+	<small  class="text-danger" [class.d-none]="city.valid || city.untouched"> Select the City </small>
+</div>
+
+<div class="form-group">
+	<label>Pincode <span>*</span></label>
+	<input type = "number" required #pincode="ngModel" placeholder = "Enter Pincode" pattern="^[1-9][0-9]{5}$"
+	[class.is-invalid]='pincode.invalid && pincode.touched' class="form-control" name="pincode" [(ngModel)]="userModel.pincode">
+	<div *ngIf="pincode.errors &&  pincode.touched">
+		<small  class="text-danger" *ngIf="pincode.errors.required"> Pincode is Required </small>
+		<small  class="text-danger" *ngIf="pincode.errors.pattern"> Pincode must be of 6 digits </small>
+	</div>
+</div>
+
+<h5>Bank Details</h5>
+<div class="form-group">
+	<label>Account No. <span>*</span></label>
+	<input type = "text" required #accno="ngModel" placeholder = "Enter Bank Account Number" 
+	[class.is-invalid]='accno.invalid && accno.touched' class="form-control" name="accno" [(ngModel)]="userModel.accno">
+	<small  class="text-danger" [class.d-none]="accno.valid || accno.untouched"> Only digits allowed </small>
+</div>
+
+<div class="form-group">
+	<label>IFSC Code <span>*</span></label>
+	<input type = "text" required #ifsc="ngModel" placeholder = "Enter Bank IFSC Code" 
+	[class.is-invalid]='ifsc.invalid && ifsc.touched' class="form-control" name="ifsc" [(ngModel)]="userModel.ifsc">
+	<small  class="text-danger" [class.d-none]="ifsc.valid || ifsc.untouched"> IFSC is required </small>
+</div>
+
+<h5>Documents Upload</h5>
+<div class="form-group">
+	<label>Aadhaar <span>*</span></label>
+	<input type="file" id="myfile" name="aadhar" required #aadhar="ngModel"
+	[class.is-invalid]='aadhar.invalid && aadhar.touched' class="form-control"  [(ngModel)]="userModel.aadhar">
+	<small  class="text-danger" [class.d-none]="aadhar.valid || aadhar.untouched"> Aadhaar Document is  required </small>
+</div>
+
+<div class="form-group">
+	<label>PAN <span>*</span></label>
+	<input type="file" id="myfile" name="pan" required #pan="ngModel"
+	[class.is-invalid]='pan.invalid && pan.touched' class="form-control"  [(ngModel)]="userModel.pan">
+	<small  class="text-danger" [class.d-none]="pan.valid || pan.untouched"> Pan Document is required </small>
+</div>
+
+<div class="form-group">
+	<label>Trader License <span>*</span></label>
+	<input type="file" id="myfile" name="trader" required #trader="ngModel"
+	[class.is-invalid]='trader.invalid && trader.touched' class="form-control"  [(ngModel)]="userModel.trader">
+	<small  class="text-danger" [class.d-none]="trader.valid || trader.untouched"> Trader License Document is required </small>
+</div>
+
+<div class="form-group">
+	<label>Password <span>*</span></label>
+	<input type = "password" required #password="ngModel" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder = "Enter Password" 
+	[class.is-invalid]='password.invalid && password.touched' class="form-control" name="password" [(ngModel)]="userModel.password">
+	<div *ngIf="password.errors &&  password.touched">
+		<small  class="text-danger" *ngIf="password.errors.required"> Password is Required </small>
+		<small  class="text-danger" *ngIf="password.errors.pattern"> Weak Password</small>
+	</div>
+</div>
+
+<button [disabled]="userForm.form.invalid" class="btn btn-primary" type="submit">Register</button>&nbsp;&nbsp;&nbsp;
+<button class="btn btn-primary" type="reset">Reset</button>
+</form>
+</div>

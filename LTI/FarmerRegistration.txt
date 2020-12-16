@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Farmer Registration Page</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<style type="text/css">
+	
+	.form{
+
+		max-width: 40%;
+		margin: auto;
+
+
+	}
+</style>
+<body>
+	<h3 style="text-align: center;">Farmer Registration Page</h3>
+	<h3 style="text-align: center;">Personal Details</h3>
+	<div class="container">
+		<form class="form">
+			<div class="form-group">
+
+				<label for="inputFullName">Full Name</label>
+				<input type="text" class="form-control" id="inputFullName" placeholder="Full Name" required autofocus>
+			</div>
+
+			<div class="form-group">
+				<label for="inputContactNumber">Contact Number</label>
+				<input type="text" class="form-control" id="inputContactNumber" placeholder="Contact Number" required autofocus>
+			</div>
+
+			<div class="form-group">
+				<label for="inputEmail">Email</label>
+				<input type="email" class="form-control" id="inputEmail" placeholder="Email" required autofocus>
+			</div>
+
+			<h3 style="text-align: center;">Address Details</h3>
+			
+			<div class="form-group">
+				<label for="inputAddress">Address</label>
+				<textarea rows="4" cols="35" name="address" class="form-control" placeholder="Address" id="inputAddress"></textarea>	
+			</div>
+
+
+			<div class="form-group">
+				<label for="inputCity">City</label>
+				<input type="text" class="form-control" id="inputCity" placeholder="City" required autofocus>
+			</div>
+
+
+			<div class="form-group">
+				<label for="inputState">State</label>
+				<input type="text" class="form-control" id="inputState" placeholder="State" required autofocus>
+			</div>
+
+
+
+			<div class="form-group">
+				<label for="inputPinCode">PinCode</label>
+				<input type="text" class="form-control" id="inputPinCode" placeholder="PinCode" required autofocus>
+			</div>
+
+			<h3 style="text-align: center;">Land Details</h3>
+
+
+
+			<div class="form-group">
+				<label for="inputArea">Area</label>
+				<input type="text" class="form-control" id="inputArea" placeholder="Area" required autofocus>
+			</div>
+
+
+			<div class="form-group">
+				<label for="inputAddress">PinCode</label>
+				<input type="text" class="form-control" id="inputAddress" placeholder="Address" required autofocus>
+			</div>
+
+
+
+			<div class="form-group">
+				<label for="inputPinCode">PinCode</label>
+				<input type="text" class="form-control" id="inputPinCode" placeholder="PinCode" required autofocus>
+			</div>
+
+
+
+			<h3 style="text-align: center;">Bank Details</h3>
+
+			<div class="form-group">
+				<label for="inputAccountNumber">Account Number</label>
+				<input type="text" class="form-control" id="inputAccountNumber" placeholder="Account Number" required autofocus>
+			</div>
+
+
+
+			<div class="form-group">
+				<label for="inputIfsc">IFSC Code</label>
+				<input type="text" class="form-control" id="inputIfsc" placeholder="IFSC Code" required autofocus>
+			</div>
+
+			<h3 style="text-align: center;">Document Upload</h3>
+
+
+			<div class="custom-file form-group">
+				<input type="file" class="custom-file-input form-control" id="customFile" required autofocus>
+				<label class="custom-file-label" for="customFile">AadharCard</label>
+			</div>
+
+			<div class="custom-file form-group ">
+				<input type="file" class="custom-file-input form-control" id="customFile" required autofocus>
+				<label class="custom-file-label" for="customFile">PanCard</label>
+			</div>
+
+			<div class="custom-file form-group">
+				<input type="file" class="custom-file-input form-control" id="customFile" required autofocus>
+				<label class="custom-file-label" for="customFile">Certificate</label>
+			</div>
+
+
+			<div class="form-group">
+				<label for="inputPassword">Password</label>
+				<input type="password" class="form-control" id="inputPassword" placeholder="Password" required autofocus>
+			</div>
+
+			<div class="form-group">
+				<label for="inputConfirmPassword">Password</label>
+				<input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password" required autofocus>
+			</div>
+
+
+
+
+			<div class="btn text-left">
+				<button type="submit" class="btn btn-default  btn-lg">Register</button>
+			</div>
+
+			<div class="btn text-right">
+				<button type="reset" class="btn btn-default  btn-lg">Reset</button>
+			</div>
+		</form>
+
+
+	</div>
+
+
+</body>
+</html>

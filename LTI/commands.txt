@@ -1,0 +1,12 @@
+commands to create a new angular folder
+
+ng new <name-of-folder>
+
+cd <name-of-folder>
+
+ng serve 
+
+
+to create a new component
+
+ng g(generate) c(component) <component-name>
