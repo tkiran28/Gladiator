@@ -6,6 +6,7 @@ cd <name-of-folder>
 
 ng serve 
 
+hello
 
 to create a new component
 
