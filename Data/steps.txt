@@ -1,0 +1,55 @@
+my computer
+apache tomcat zip folder paste in one drive->unzip
+copy apache folder address 
+mycomputer->properties->advance system->environment variable->user variable new->varaible name CATALINA_HOME  variable value apache folder address->ok
+c->program files->java->jdk->copy address
+mycomputer->properties->advance system->environment variable->system variable new->JAVA_HOME address
+
+system variable->path->edit->%JAVA_HOME\bin;.;%CATALINA_HOME%;.;
+
+apachetomcat->bin ->open cmd type
+ java -version 
+ javac -version 
+should be same version
+
+apachetomcat->conf->server.xml->change connector port 8080 to 9090  save it
+
+again cmd  type
+catalina start 
+
+to check google->localhost:9090
+
+noun - book,Delhi
+pronoun - He ,she 
+verb - run ,walk
+adjective - beautiful, small
+adverb -Beautifully,Quickly
+preposition - in,on ,under
+conjuction - and ,but ,or
+interjection -Hurray!,Wow!
+
+
+identify the subject
+is it singular or plural
+identify the ver
+subject is singular then verb is singular
+
+Subject verb agreement
+
+
+Article
+
+-definite -the
+-indefinite -an (vowwel) and vowel sound
+	   - a(consonant)
+
+
+
+
+
+
+
+
+
+
+

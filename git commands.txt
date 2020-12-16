@@ -1,0 +1,7 @@
+git init
+ls
+git status
+git add (.) for all
+git commit - m "message"
+ git remote add origin github repository link
+ git push origin master

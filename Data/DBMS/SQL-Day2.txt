@@ -1,0 +1,348 @@
+==========================
+Some examples on Order By
+==========================
+
+Q.1 -> Fetch data of employees sorted based on their salary in ascending order
+* SELECT first_name, salary FROM hr.employees ORDER BY salary;
+
+Q.2 -> Fetch data of employees sorted based on their salary in descending order
+* SELECT first_name, salary FROM hr.employees ORDER BY salary DESC;
+
+Q.3 -> Fetch data of employees sorted based on department id and salary
+* SELECT first_name, salary, department_id FROM hr.employees ORDER BY department_id, salary;
+
+Q.4 -> Using column index instead of column name
+SELECT first_name, salary, department_id FROM hr.employees ORDER BY 1;
+
+=======================
+Using DISTINCT keyword
+=======================
+
+SELECT department_id FROM hr.employees;
+SELECT DISTINCT department_id FROM hr.employees;
+
+==================================
+A bit on operator precendence now
+==================================
+
+Q.5 -> Fetch all the employees who are president and earning more than 15000 OR if the employee is a sales representative
+SELECT first_name, job_id, salary FROM hr.employees WHERE job_id = 'SA_REP' OR job_id = 'AD_PRES' AND salary > 15000;
+
+o/p:job_id = 'AD_PRES' AND salary > 15000; first this query is executed  as AND operator has  highest preference and then or wala
+
+SELECT first_name, job_id, salary FROM hr.employees WHERE job_id = 'AD_PRES' AND salary > 15000 OR job_id = 'SA_REP';
+
+same o/p as above query 
+
+
+SELECT first_name, job_id, salary FROM hr.employees WHERE job_id = 'AD_PRES' AND salary > 15000 AND job_id = 'SA_REP';
+
+-> The query below is important to understand that AND operator has a higher precendence than OR
+SELECT first_name, job_id, salary FROM hr.employees WHERE job_id = 'AD_PRES' OR job_id = 'SA_REP' AND salary > 15000;
+
+-> The correct way of writing the query for this requirement is:
+SELECT first_name, job_id, salary FROM hr.employees WHERE (job_id = 'AD_PRES' AND salary >= 15000) OR job_id = 'SA_REP';
+
+Q.6 -> Fetch all the employees who are president OR sales representative and earning more than 15000
+
+
+======================================
+In built functions provided by Oracle
+======================================
+2 types of functions:
+-> Single row functions
+-> Multiple row functions / Aggregate functions
+
+Examples on a single row function
+---------------------------------
+
+SELECT UPPER(first_name) FROM hr.employees;
+SELECT UPPER('majrul'), LOWER('Majrul'), INITCAP('majrul') FROM dual;//
+
+Different types of single row functions
+1. Character (upper/lower/initcap, concat, instr, substr, ...)
+2. Number (round, trunc, mod, ...)
+3. Date (months_between, add_months, last_day, ...)
+4. Conversion (to_char, to_date, to_number, ...)
+5. General (nvl, nvl2, nullif, coalesce)
+
+Using concat function instead of || symbol
+SELECT employee_id, 'My name is ' || first_name AS name FROM hr.employees;
+SELECT employee_id, CONCAT('My name is ', first_name) AS name FROM hr.employees;
+
+Try concat for the below example
+SELECT employee_id, 'My name is ' || first_name || ' ' || last_name AS name FROM hr.employees;
+SELECT employee_id, CONCAT('My name is ', CONCAT(first_name, CONCAT(' ', last_name))) AS name FROM hr.employees;
+
+Some more examples on Character functions
+------------------------------------------
+SELECT LENGTH(last_name), INSTR(last_name, 'a'), last_name FROM hr.employees WHERE SUBSTR(job_id, 4) = 'REP';
+
+SELECT SUBSTR('HelloWorld', 6) FROM dual;
+SELECT SUBSTR('HelloWorld', 2, 4) FROM dual;//remove str from position 2 having str length of 4
+SELECT employee_id, first_name, last_name FROM hr.employees WHERE SUBSTR(last_name, -1, 1) = 'n';
+
+
+SELECT INSTR('HelloWorld', 'W') FROM dual;
+
+SELECT INSTR('apple', 'p', 1, 2) FROM dual;//start searching from position one for second occurence of p.
+
+
+Some examples on Numeric functions ( if .5 then next number . upto .4 same number)
+----------------------------------
+SELECT ROUND(42.926) FROM dual; -- 43
+SELECT ROUND(42.426) FROM dual; -- 42
+SELECT ROUND(42.526) FROM dual; -- 43
+
+SELECT ROUND(45.926, 2) FROM dual; -- 45.93
+SELECT ROUND(45.926, 1) FROM dual; -- 45.9
+SELECT ROUND(45.996, 1) FROM dual; -- 46
+
+SELECT ROUND(45. 923, 2), ROUND(45.923, 0), ROUND(45.923, -1) FROM dual;
+
+SELECT ROUND(99.923, -2) FROM dual;//0
+SELECT ROUND(0.99) FROM dual;
+
+SELECT ROUND(199.923, -2) FROM dual;//start counting as -1 from left side of . and at -2 there is 9 so o/p is 200
+SELECT ROUND(149.923, -2) FROM dual;//ans-100
+
+SELECT ROUND(149.923,-3) from dual;//ans - 0
+
+
+SELECT ROUND(1.49) FROM dual;//it will see 1st  digit after point if 2nd arg is not passed//1
+SELECT ROUND(1.69) FROM dual;//2
+SELECT TRUNC(45.996) FROM dual;
+SELECT TRUNC(45.923, 2), TRUNC(45.923), TRUNC(45.923, -2) FROM dual;
+
+SELECT last_name, salary, MOD(salary, 5000) FROM employees;
+
+99.923 -> Round -2 -> 99 -> 90 -> 9 -> 100
+
+
+Some examples on Date functions
+-------------------------------
+SELECT sysdate FROM dual;
+
+SELECT sysdate + 90 FROM dual;
+SELECT EXTRACT(day FROM DATE '2015-03-05') FROM DUAL;//imp
+
+SELECT hire_date, hire_date + 90 AS review_date FROM hr.employees;
+
+Q. -> Display for how many weeks has an employee worked in the org. so far
+SELECT first_name, (sysdate - hire_date)/7 AS weeks FROM hr.employees;
+
+Q. -> Display for how many months has an employee worked in the org. so far
+
+Q. -> Display for how many years has an employee worked in the org. so far
+SELECT first_name, (sysdate - hire_date)/365 AS years FROM hr.employees;
+SELECT first_name, MONTHS_BETWEEN(sysdate, hire_date)/12 AS years FROM hr.employees;
+SELECT first_name, ROUND(MONTHS_BETWEEN(sysdate, hire_date)/12) AS years FROM hr.employees;
+
+SELECT ADD_MONTHS(sysdate, 6) FROM dual;
+SELECT LAST_DAY(sysdate) FROM dual;
+SELECT NEXT_DAY(sysdate, 'FRIDAY') FROM dual;
+
+
+
+
+
+
+select ename || q'[  it's ]' || job  as Combined from emp;
+-- o/p:   KING  it's  MANAGER
+-- Use q'[     ]'  if word contains quote in it.
+
+
+Conversion functions
+--------------------
+-> Conversion of data from one type to another
+	* Implicit conversion
+		SELECT first_name, last_name FROM hr.employees WHERE hire_date BETWEEN '01-JAN-2005' AND '31-DEC-2005';
+		In the above query date is implicitly getting coverted to char/string for the comparison purpose
+	  Implicit conversion is done for the following cases:
+	   VARCHAR/VARCHAR2/CHAR TO NUMBER/DATE
+	   NUMBER/DATE TO VARCHAR2
+	* Explicit conversion
+		Involves the use of various functions provided by Oracle
+
+
+Examples on explicit conversion
+--------------------------------
+SELECT employee_id, hire_date, TO_CHAR(hire_date, 'MM/YY') FROM hr.employees;
+* common date format models are: YYYY, YEAR, MM, MONTH, MON, DY, DAY, DD
+
+Q. -> Display employee_id, name and the DAY when the employee was hired
+SELECT employee_id, hire_date, TO_CHAR(hire_date, 'DAY') FROM hr.employees;
+
+
+SELECT TO_CHAR(sysdate, 'dd-month-yyyy q') FROM dual;
+SELECT TO_CHAR(sysdate, 'fmdd-month-yyyy q') FROM dual; -- formatting model (fm) - removing any trailing spaces
+
+SELECT TO_CHAR(sysdate, 'HH:MI:SS AM') FROM dual;
+
+Q. -> Display the hire_date of the employee like this: 7th of June 2002
+SELECT employee_id, first_name, TO_CHAR(hire_date, 'fmDDth " of " MON YYYY') FROM hr.employees;
+
+SELECT salary, TO_CHAR(salary, '$99,999.00') FROM hr.employees;
+SELECT salary, CHR(14844601) || TO_CHAR(salary * 73.39, '9,99,999.00') FROM hr.employees;
+
+SELECT CHR(65) FROM dual;
+
+
+SELECT TO_DATE('03-09-2020', 'DD-MM-YYYY') FROM dual; -- to_date might be more helpful in case of DML statements
+
+Q. -> Write a SELECT query to display your age
+SELECT TRUNC(SYSDATE - TO_DATE('31-JAN-1981', 'DD-MM-YYYY') FROM dual;
+SELECT TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE('31-JAN-1981', 'DD-MM-YYYY'))/12) FROM dual;
+
+SELECT TO_NUMBER('$12,500.00', '$99,999.00') FROM dual;
+
+
+General functions
+-----------------
+
+SELECT employee_id, last_name, commission_pct FROM hr.employees;
+SELECT employee_id, last_name, NVL(commission_pct, 0) FROM hr.employees;
+
+SELECT employee_id, last_name, salary, salary + salary * commission_pct AS "Actual Sal" FROM hr.employees;
+-- Fix the problem of null in above query while calculating the actual salary
+SELECT employee_id, last_name, salary, salary + salary * NVL(commission_pct, 0) AS "Actual Sal" FROM hr.employees;
+
+//NVL -> if column value not null then expression1 else expression2
+
+SELECT employee_id, last_name, salary, NVL2(commission_pct, salary + salary * commission_pct, salary) AS sal FROM hr.employees;
+//NVL2 -> With the NVL2(exp1, exp2, exp3) function, if exp1 is not null, then exp2 is returned; otherwise, the value of exp3 is returned.
+
+
+SELECT employee_id, last_name, COALESCE(commission_pct, salary, 1000) comm FROM hr.employees;
+it returns first non null column value
+//if commission_pct is null then check for salary 
+Writing If-Then-Else Login in Select queries
+--------------------------------------------
+Two options available -> CASE, DECODE
+// case is a statement
+SELECT employee_id, first_name, salary,
+		CASE department_id WHEN 20 THEN '10% HIKE'
+						   WHEN 30 THEN 'NO HIKE'
+						   ELSE '5% HIKE'
+		END AS status
+FROM hr.employees;
+
+//decode is a function
+SELECT employee_id, first_name, salary,
+		DECODE(department_id, 20, '10% HIKE',
+							  30, 'NO HIKE',
+							  '5% HIKE') AS status
+FROM hr.employees;
+
+
+Difference between CASE and DeCODE is
+
+:- CASE is a statement where as DECODE is a function.
+
+:- CASE can be used in both SQL and PLSQL . But DECODE can be used only in SQL.
+
+:- CASE is used in where clause But you cant use DECODE in where clause.
+
+:- CASE is used in relational opearators where as DECODE is used in equality opearators.
+
+
+
+Write a CASE for the following scenario:
+Display along with employee_id and name,
+those employees who have spent more than 15 yrs in the org., they should get 20% hike in their salary,
+those employees who have spent more than 10 yrs in the org., they should get 15% hike in their salary,
+those employees who have spent more than 5 yrs in the org., they should get 10% hike in their salary,
+for the rest of the employees 5% hike in their salary
+
+SELECT employee_id, first_name, salary,
+	CASE WHEN ROUND(MONTHS_BETWEEN(sysdate, hire_date)/12) > 15 THEN salary * 0.20
+		 WHEN ROUND(MONTHS_BETWEEN(sysdate, hire_date)/12) > 10 THEN salary * 0.15
+		 WHEN ROUND(MONTHS_BETWEEN(sysdate, hire_date)/12) > 5 THEN salary * 0.10
+		 ELSE salary * 0.05
+	END AS Appraisal
+FROM hr.employees;
+	
+
+Multiple row functions/aggregate functions
+------------------------------------------
+-> Multiple inputs -> Single output
+
+SELECT		- Column(s)
+FROM		- Table(s)
+WHERE		- Condition(s)
+GROUP BY	- Column(s) W.R.T whom we want to group the data
+HAVING		- Condition(s) - based on the aggregate functions used
+ORDER BY	- Column(s) - based on which sorting will be done
+
+Examples on Agg. functions
+-> COUNT, SUM, MIN, MAX, AVG
+	-> Ignores null
+-> SUM & AVG only works with numeric datatypes
+-> COUNT, MIN, MAX works with all the datatypes
+-> COUNT(ColumnName) ignores null whereas COUNT(*) counts null as well
+-> use NVL function always along with AVG function
+-> columns mentioned in the select list
+	on which there is no agg. fn applied must be part of the GROUP BY clause
+	
+
+SELECT SUM(salary), AVG(salary), MIN(salary), MAX(salary) FROM hr.employees;
+
+
+SELECT COUNT(*) FROM hr.employees; -- is this better?
+SELECT COUNT(employee_id) FROM hr.employees; -- or this one?
+
+SELECT COUNT(DISTINCT department_id) FROM hr.employees;
+
+
+SELECT AVG(commission_pct) FROM hr.employees;
+SELECT AVG(NVL(commission_pct,0)) FROM hr.employees;
+
+Assuming that we have below data in employees table:
+EMPLOYEE_ID		NAME		DEPARTMENT_ID		SALARY
+1001			A			10					10000
+1002			B			10					15000
+1003			C			10					20000
+1004			D			20					10000
+1005			E			20					20000
+
+Q. -> Requirement is to display department wise sum of salary of the employees
+SELECT department_id, SUM(salary) FROM employees; --error
+SELECT department_id, SUM(salary) FROM employees GROUP BY department_id;
+SELECT department_id, SUM(salary) FROM employees GROUP BY department_id ORDER BY department_id;
+
+Assuming that we have below data in employees table:
+EMPLOYEE_ID		NAME		DEPARTMENT_ID	JOB_ID		SALARY
+1001			A			10				SA_REP		10000
+1002			B			10				MK_MAN		25000
+1003			C			10				SA_REP		15000
+1004			D			10				MK_MAN		20000
+1005			E			20				MK_MAN		20000
+1005			F			20				SA_REP		15000
+1005			G			20				SA_REP		10000
+
+Q. -> Requirement is to display deparment & job wise total salary of the employees
+SELECT department_id, job_id, SUM(salary) FROM hr.employees GROUP BY department_id, job_id;
+
+Q. -> Display no. of emps, total salary, max salary, min salary & avg salary for each deparment
+SELECT department_id, SUM(salary), AVG(salary), MIN(salary), MAX(salary) FROM hr.employees GROUP BY department_id;
+
+
+Q. -> Display the no. of emps having the same job id in the org.
+SELECT job_id, COUNT(employee_id) FROM hr.employees GROUP BY job_id;
+
+
+Q. -> Display total salary of all the employees where the no. of employees are more than 10 in that deparment
+SELECT department_id, SUM(salary) FROM hr.employees GROUP BY department_id WHERE COUNT(employee_id) >= 10;
+-- The above query will not work.. Why? --> Aggregate fn. cannot be used in the WHERE clause
+
+
+
+Aggregate functions work on sets of data. A WHERE clause doesn't have access to entire set, but only to the row that it is currently working on.
+
+
+
+
+
+
+
+

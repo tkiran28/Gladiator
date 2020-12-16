@@ -1,0 +1,10 @@
+all time date functions
+if then else in sql ( case,decode) .. done
+round truncate functions ....done
+conversion functions
+general functions
+aggregate functions
+joins
+subqueries
+corelated subqueries
+exercise on hr schema
